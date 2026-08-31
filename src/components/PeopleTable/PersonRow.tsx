@@ -8,6 +8,7 @@ type Props = { person: Person; selectedSlug?: string };
 export const PersonRow = ({ person, selectedSlug }: Props) => {
   const linkRef = useRef<HTMLAnchorElement>(null);
   const isSelected = selectedSlug === person.slug;
+  const { mother, father } = person;
 
   useEffect(() => {
     if (isSelected) {
@@ -30,23 +31,15 @@ export const PersonRow = ({ person, selectedSlug }: Props) => {
       <td>{person.born}</td>
       <td>{person.died}</td>
       <td>
-        {person.mother ? (
-          <PersonLink
-            slug={person.mother.slug}
-            name={person.mother.name}
-            sex={person.mother.sex}
-          />
+        {mother ? (
+          <PersonLink slug={mother.slug} name={mother.name} sex={mother.sex} />
         ) : (
           person.motherName || '-'
         )}
       </td>
       <td>
-        {person.father ? (
-          <PersonLink
-            slug={person.father.slug}
-            name={person.father.name}
-            sex={person.father.sex}
-          />
+        {father ? (
+          <PersonLink slug={father.slug} name={father.name} sex={father.sex} />
         ) : (
           person.fatherName || '-'
         )}
